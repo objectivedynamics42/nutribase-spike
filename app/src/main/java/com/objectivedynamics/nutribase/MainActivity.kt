@@ -7,8 +7,13 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.objectivedynamics.nutribase.api.SearchResult
+import com.objectivedynamics.nutribase.api.createGithubApiService
 import com.objectivedynamics.nutribase.models.FoodGroup
 import com.objectivedynamics.nutribase.foodgrouplist.FoodGroupsAdapter
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,21 +31,18 @@ class MainActivity : AppCompatActivity() {
         val list: RecyclerView = findViewById(R.id.list)
 
         list.layoutManager = LinearLayoutManager(this)
-
         list.adapter = adapter
 
-        val sampleData = listOf(
-            FoodGroup("Food Group 1"),
-            FoodGroup("Food Group 2"),
-            FoodGroup("Food Group 3"),
-            FoodGroup("Food Group 4"),
-            FoodGroup("Food Group 5"),
-            FoodGroup("Food Group 6"),
-            FoodGroup("Food Group 7"),
-            FoodGroup("Food Group 8"),
-            FoodGroup("Food Group 9"),
-            FoodGroup("Food Group 10")
-        )
-        adapter.submitList(sampleData)
+        val service = createGithubApiService()
+        service.searchRepositories("android").enqueue(object : Callback<SearchResult> {
+            override fun onFailure(call: Call<SearchResult>, t: Throwable) {
+                //TODO handle failure
+            }
+
+            override fun onResponse(call: Call<SearchResult>, response: Response<SearchResult>) {
+                val repos = response.body()?.items.orEmpty()
+                adapter.submitList(repos)
+            }
+        })
     }
 }
