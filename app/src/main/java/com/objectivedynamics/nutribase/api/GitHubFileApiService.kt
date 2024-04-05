@@ -6,15 +6,15 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-fun createGitHubApiFileService() : GitHubApiFileService{
+fun createGitHubApiFileService() : GitHubFileApiService{
     val retrofit = Retrofit.Builder()
         .baseUrl("https://api.github.com")
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
 
-    return retrofit.create(GitHubApiFileService::class.java)
+    return retrofit.create(GitHubFileApiService::class.java)
 }
-interface GitHubApiFileService {
+interface GitHubFileApiService {
     @GET("/repos/{owner}/{repo}/contents/{path}")
     fun getFile(
         @Path("owner") owner:String,

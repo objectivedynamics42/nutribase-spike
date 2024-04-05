@@ -46,21 +46,21 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<FileResult>, response: Response<FileResult>) {
                 val content = response.body()?.content
 
-                val nutritionData = getNutritionData(content)
+                val nutritionData = getTagData(content)
 
                 adapter.submitList(nutritionData?.tags)
             }
         })
     }
 
-    private fun getNutritionData(content: String?): TagData? {
-        val jsonString: String = getNutritionDataJson(content)
+    private fun getTagData(content: String?): TagData? {
+        val jsonString: String = getTagDataJson(content)
 
         val gson = Gson()
         return gson.fromJson(jsonString, TagData::class.java)
     }
 
-    private fun getNutritionDataJson(content: String?): String {
+    private fun getTagDataJson(content: String?): String {
         val contentNoLineBreaks = content?.replace("\n", "")
 
         val decoder = Base64.getDecoder()
