@@ -11,7 +11,7 @@ import com.google.gson.Gson
 import com.objectivedynamics.nutribase.api.FileResult
 import com.objectivedynamics.nutribase.api.createGitHubApiFileService
 import com.objectivedynamics.nutribase.taglist.TagAdapter
-import com.objectivedynamics.nutribase.models.NutritionData
+import com.objectivedynamics.nutribase.models.TagData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,11 +53,11 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun getNutritionData(content: String?): NutritionData? {
+    private fun getNutritionData(content: String?): TagData? {
         val jsonString: String = getNutritionDataJson(content)
 
         val gson = Gson()
-        return gson.fromJson(jsonString, NutritionData::class.java)
+        return gson.fromJson(jsonString, TagData::class.java)
     }
 
     private fun getNutritionDataJson(content: String?): String {

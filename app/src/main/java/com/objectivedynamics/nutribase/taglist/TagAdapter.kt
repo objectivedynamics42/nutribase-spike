@@ -15,8 +15,8 @@ class NutritionDataViewHolder(view: View) : RecyclerView.ViewHolder(view){
 
     private val name: TextView = view.findViewById(R.id.name)
 
-    fun bind(repo: Tag){
-        name.text = repo.name
+    fun bind(tag: Tag){
+        name.text = tag.name
     }
 }
 
@@ -31,7 +31,7 @@ val diffCallback = object:DiffUtil.ItemCallback<Tag>(){
 }
 class TagAdapter : ListAdapter<Tag,NutritionDataViewHolder>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NutritionDataViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_repo, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_tag, parent, false)
         return NutritionDataViewHolder(view)
     }
 
