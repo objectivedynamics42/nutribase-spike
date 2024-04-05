@@ -1,6 +1,7 @@
 package com.objectivedynamics.nutribase
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -20,7 +21,7 @@ import java.util.Base64
 
 class MainActivity : AppCompatActivity() {
 
-    private val adapter = TagAdapter()
+    private lateinit var adapter: TagAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +32,10 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        adapter = TagAdapter { tag ->
+            Toast.makeText(this, tag.name, Toast.LENGTH_SHORT).show()
         }
 
         val list: RecyclerView = findViewById(R.id.list)
