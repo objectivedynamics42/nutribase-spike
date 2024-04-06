@@ -1,6 +1,7 @@
 package com.objectivedynamics.nutribase
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,7 +12,8 @@ import com.google.gson.Gson
 import com.objectivedynamics.nutribase.api.FileResult
 import com.objectivedynamics.nutribase.api.createGitHubApiFileService
 import com.objectivedynamics.nutribase.taglist.TagAdapter
-import com.objectivedynamics.nutribase.models.TagData
+import com.objectivedynamics.nutribase.models.NutritionData
+import com.objectivedynamics.nutribase.tagDetails.TagDetailsActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,7 +22,7 @@ import java.util.Base64
 
 class MainActivity : AppCompatActivity() {
 
-    private val adapter = TagAdapter()
+    private lateinit var adapter: TagAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,13 +35,17 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        adapter = TagAdapter { tag ->
+            TagDetailsActivity.startActivity(this, tag)
+        }
+
         val list: RecyclerView = findViewById(R.id.list)
 
         list.layoutManager = LinearLayoutManager(this)
         list.adapter = adapter
 
         val fileService = createGitHubApiFileService()
-        fileService.getFile("objectivedynamics42","nutribase-data", "v1.0.json").enqueue(object :  Callback<FileResult>{
+        fileService.getFile("objectivedynamics42","nutribase-data", "nutribase-v1.0.json").enqueue(object :  Callback<FileResult>{
             override fun onFailure(p0: Call<FileResult>, p1: Throwable) {
                 //TODO handle failure
             }
@@ -53,11 +59,11 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun getTagData(content: String?): TagData? {
+    private fun getTagData(content: String?): NutritionData? {
         val jsonString: String = getTagDataJson(content)
 
         val gson = Gson()
-        return gson.fromJson(jsonString, TagData::class.java)
+        return gson.fromJson(jsonString, NutritionData::class.java)
     }
 
     private fun getTagDataJson(content: String?): String {

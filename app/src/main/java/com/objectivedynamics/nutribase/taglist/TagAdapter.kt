@@ -29,7 +29,7 @@ val diffCallback = object:DiffUtil.ItemCallback<Tag>(){
         return oldItem == newItem
     }
 }
-class TagAdapter : ListAdapter<Tag,NutritionDataViewHolder>(diffCallback) {
+class TagAdapter(private val tagClickHAndler:(Tag) -> Unit) : ListAdapter<Tag,NutritionDataViewHolder>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NutritionDataViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_tag, parent, false)
         return NutritionDataViewHolder(view)
@@ -37,5 +37,8 @@ class TagAdapter : ListAdapter<Tag,NutritionDataViewHolder>(diffCallback) {
 
     override fun onBindViewHolder(holder: NutritionDataViewHolder, position: Int) {
         holder.bind(getItem(position))
+        holder.itemView.setOnClickListener{
+            tagClickHAndler(getItem(position))
+        }
     }
 }
