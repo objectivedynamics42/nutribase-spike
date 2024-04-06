@@ -1,7 +1,6 @@
 package com.objectivedynamics.nutribase
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -52,14 +51,14 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<FileResult>, response: Response<FileResult>) {
                 val content = response.body()?.content
 
-                val nutritionData = getTagData(content)
+                val nutritionData = getNutritionData(content)
 
                 adapter.submitList(nutritionData?.tags)
             }
         })
     }
 
-    private fun getTagData(content: String?): NutritionData? {
+    private fun getNutritionData(content: String?): NutritionData? {
         val jsonString: String = getTagDataJson(content)
 
         val gson = Gson()
