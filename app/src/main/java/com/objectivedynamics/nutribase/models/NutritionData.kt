@@ -2,7 +2,7 @@ package com.objectivedynamics.nutribase.models
 
 import com.google.gson.annotations.SerializedName
 
-data class TagData(
+data class NutritionData(
     @SerializedName("Tags") val tags: List<Tag>,
 )
 

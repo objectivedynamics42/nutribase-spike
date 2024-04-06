@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Nutribase"
         tools:targetApi="31">
         <activity
+            android:name=".tagDetails.TagDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
