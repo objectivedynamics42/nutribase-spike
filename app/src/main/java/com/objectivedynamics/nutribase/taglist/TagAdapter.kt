@@ -29,6 +29,7 @@ val diffCallback = object:DiffUtil.ItemCallback<Tag>(){
         return oldItem == newItem
     }
 }
+
 class TagAdapter(private val tagClickHAndler:(Tag) -> Unit) : ListAdapter<Tag,NutritionDataViewHolder>(diffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NutritionDataViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_tag, parent, false)

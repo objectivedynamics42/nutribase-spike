@@ -17,7 +17,7 @@ class TagDetailsActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_tag_details)
 
-        val name = intent.getStringExtra(KEY_NAME)
+        val name = intent.getStringExtra(KEY_TAG_NAME)
 
         val nameText: TextView = findViewById(R.id.tagName)
 
@@ -32,10 +32,11 @@ class TagDetailsActivity : AppCompatActivity() {
 
     companion object{
 
-        const val KEY_NAME = "key_name"
+        const val KEY_TAG_NAME = "key_tag_name"
         fun startActivity(context: Context, tag: Tag){
             val intent = Intent(context, TagDetailsActivity::class.java)
-            intent.putExtra(KEY_NAME, tag.name)
+            //TODO is this where we would also pass the top(1) food name through to the new activity?
+            intent.putExtra(KEY_TAG_NAME, tag.name)
             context.startActivity(intent)
         }
     }

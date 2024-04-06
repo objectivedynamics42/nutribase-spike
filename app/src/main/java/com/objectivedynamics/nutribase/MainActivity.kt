@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        //TODO we need to modify this so we can no only pass the selected tag but also the top food
         adapter = TagAdapter { tag ->
             TagDetailsActivity.startActivity(this, tag)
         }
@@ -59,13 +60,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getNutritionData(content: String?): NutritionData? {
-        val jsonString: String = getTagDataJson(content)
+        val nutritionJson: String = decodeJsonData(content)
 
         val gson = Gson()
-        return gson.fromJson(jsonString, NutritionData::class.java)
+        return gson.fromJson(nutritionJson, NutritionData::class.java)
     }
 
-    private fun getTagDataJson(content: String?): String {
+    private fun decodeJsonData(content: String?): String {
         val contentNoLineBreaks = content?.replace("\n", "")
 
         val decoder = Base64.getDecoder()
