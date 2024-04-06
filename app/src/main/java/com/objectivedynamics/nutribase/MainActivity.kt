@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.objectivedynamics.nutribase.api.FileResult
 import com.objectivedynamics.nutribase.api.createGitHubApiFileService
-import com.objectivedynamics.nutribase.taglist.TagAdapter
+import com.objectivedynamics.nutribase.taglist.TagsAdapter
 import com.objectivedynamics.nutribase.models.NutritionData
 import com.objectivedynamics.nutribase.tagDetails.TagDetailsActivity
 import retrofit2.Call
@@ -21,7 +21,7 @@ import java.util.Base64
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var adapter: TagAdapter
+    private lateinit var adapter: TagsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //TODO we need to modify this so we can no only pass the selected tag but also the top food
-        adapter = TagAdapter { tag ->
+        adapter = TagsAdapter { tag ->
             TagDetailsActivity.startActivity(this, tag)
         }
 
@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         val fileService = createGitHubApiFileService()
         fileService.getFile("objectivedynamics42","nutribase-data", "nutribase-v1.0.json").enqueue(object :  Callback<FileResult>{
+            //MikeB This is the getFile implementation from the GitHubFileApiService interface
             override fun onFailure(p0: Call<FileResult>, p1: Throwable) {
                 //TODO handle failure
             }
