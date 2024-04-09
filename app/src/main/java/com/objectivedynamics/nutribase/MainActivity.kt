@@ -18,7 +18,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.Base64
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: TagsAdapter
@@ -34,7 +33,6 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        //TODO we need to modify this so we can no only pass the selected tag but also the top food
         adapter = TagsAdapter { tag ->
             TagDetailsActivity.startActivity(this, tag)
         }
